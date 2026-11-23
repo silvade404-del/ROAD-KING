@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="si"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ROAD KING - Tuk Tuk Diary</title><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0B5ED7"><link rel="apple-touch-icon" href="icon-192.png"><style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,'Noto Sans Sinhala',sans-serif;background:#F2F6FC;color:#102A43}header{position:sticky;top:0;background:#0B5ED7;color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;z-index:5}header b{font-size:19px}header span{font-size:12px;opacity:.9}.wrap{max-width:520px;margin:0 auto;padding:14px 14px 90px}.card{background:#fff;border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.06)}h2{margin:0 0 8px;font-size:18px}label{font-size:13px;font-weight:700;color:#486581;display:block;margin:12px 0 5px}input,select,textarea{width:100%;padding:12px;border:1.5px solid #D9E2EC;border-radius:12px;font-size:16px}button{border:0;border-radius:12px;padding:13px;font-size:16px;font-weight:800;cursor:pointer}.primary{background:#0B5ED7;color:#fff;width:100%}.green{background:#25D366;color:#fff;width:100%;text-decoration:none;display:block;text-align:center;padding:13px;border-radius:12px;font-weight:800}.row{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 0;border-top:1px solid #EFF2F7}.row small{color:#486581}.small{font-size:13px;color:#486581}.danger{background:#FFE8E8;color:#B42318}.muted{background:#EAF0F7}.nav{position:fixed;left:0;right:0;bottom:0;background:#fff;display:flex;border-top:1px solid #D9E2EC;z-index:5}.nav button{flex:1;background:none;padding:12px 4px;font-size:12px;color:#486581}.nav button.on{color:#0B5ED7}.big{font-size:24px;font-weight:900}.pill{display:inline-block;background:#EAF0F7;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:700}.ok{color:#0B7A3E;font-weight:800}.hide{display:none}.badge{font-size:12px;background:#FFF3CD;padding:6px 10px;border-radius:999px;font-weight:700}
+</style></head><body>
+<header><div><b>ROAD KING</b><br><span>Tuk Tuk Diary</span></div><span id="trialBadge" class="badge"></span></header>
+<div class="wrap" id="app"></div>
+<nav class="nav" id="nav"><button onclick="go('home')" id="n-home">🏠<br>Home</button><button onclick="go('add')" id="n-add">➕<br>දත්ත</button><button onclick="go('report')" id="n-report">📊<br>මාසය</button><button onclick="go('settings')" id="n-settings">⚙️<br>Settings</button></nav>
+<script>
+const $=s=>document.querySelector(s); const today=()=>new Date().toISOString().slice(0,10);
+const CATS=[['hires','දවසේ හයර්'],['petrol','පෙට්‍රල්'],['school','School හයර්'],['leasing','Leasing'],['service','Service'],['police','Police / Insurance / License'],['bill','දවසේ Bill']];
+const K='rk_pwa_v1'; let DB=JSON.parse(localStorage.getItem(K)||'{}');
+function save(){localStorage.setItem(K,JSON.stringify(DB));} // Auto-save instantly on every change
+function init(){ if(!DB.data) DB={data:{hires:[],petrol:[],school:[],leasing:[],service:[],police:[],bill:[]},device:('RK-'+Math.random().toString(36).slice(2,10)).toUpperCase(),trial:null,activation:null}; if(!DB.trial){DB.trial={startedAt:today()}; save();} checkExpiry(); render(); }
+function addDays(d,n){const x=new Date(d+'T00:00:00');x.setDate(x.getDate()+n);return x.toISOString().slice(0,10);}
+function addMonths(d,n){const x=new Date(d+'T00:00:00');x.setMonth(x.getMonth()+n);return x.toISOString().slice(0,10);}
+function addYears(d,n){const x=new Date(d+'T00:00:00');x.setFullYear(x.getFullYear()+n);return x.toISOString().slice(0,10);}
+function trialExpiry(){return DB.trial?addDays(DB.trial.startedAt,7):'';}
+function isTrialActive(){return !DB.activation && DB.trial && today()<=trialExpiry();}
+function isKeyActive(){return DB.activation && today()<=DB.activation.expiryDate;}
+function locked(){return !isTrialActive() && !isKeyActive();}
+function checkExpiry(){ if(DB.activation && today()>DB.activation.expiryDate){DB.activation=null;save();} }
+function trialLeft(){return Math.max(0,Math.ceil((new Date(trialExpiry())-new Date(today()))/86400000));}
+let page='home', manageCat='hires', reportMode='month', editRef=null;
+function go(p){page=p;render();}
+function esc(s){return String(s??'').replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));}
+function fmt(n){return 'Rs. '+Number(n||0).toLocaleString('en-LK');}
+function list(cat){return DB.data[cat]||[];}
+function del(cat,id){if(!confirm('මෙම දත්තය ඉවත් කරන්නද?'))return;DB.data[cat]=list(cat).filter(x=>x.id!==id);save();render();}
+function clearCat(){if(!confirm('මෙම කැටගරියේ සියලු දත්ත ඉවත් කරන්නද?'))return;DB.data[manageCat]=[];save();render();}
+function render(){
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('on'));
+  const nb=$('#n-'+page); if(nb) nb.classList.add('on');
+  const tb=$('#trialBadge');
+  if(isKeyActive()) tb.textContent='Key • ඉවර වෙන්නේ '+DB.activation.expiryDate;
+  else if(isTrialActive()) tb.textContent='Trial • ඉතිරි දවස් '+trialLeft();
+  else tb.textContent='Lock';
+  if(locked()){ $('#app').innerHTML=lockHTML(); return; }
+  if(page==='home') $('#app').innerHTML=homeHTML();
+  if(page==='add') $('#app').innerHTML=addHTML();
+  if(page==='report') $('#app').innerHTML=reportHTML();
+  if(page==='settings') $('#app').innerHTML=settingsHTML();
+}
+function homeHTML(){
+  const h=list('hires').filter(x=>x.date===today()); const p=list('petrol').filter(x=>x.date===today()); const b=list('bill').filter(x=>x.date===today());
+  const inc=h.reduce((a,x)=>a+Number(x.amount||0),0); const pet=p.reduce((a,x)=>a+Number(x.amount||0),0); const bil=b.reduce((a,x)=>a+Number(x.amount||0),0);
+  return `<div class="card"><div class="small">අද • ${today()}</div><div class="big">${fmt(inc-pet-bil)}</div><div class="small">ආදායම ${fmt(inc)} • පෙට්‍රල් ${fmt(pet)} • Bill ${fmt(bil)}</div></div>
+  <div class="card"><h2>අද හයර්</h2>${h.length?h.map(x=>`<div class="row"><span>${esc(x.name)}</span><b>${fmt(x.amount)}</b></div>`).join(''):'<div class="small">දත්ත නැත</div>'}</div>
+  <div class="card"><h2>අද පෙට්‍රල්</h2>${p.length?p.map(x=>`<div class="row"><span>${esc(x.litres||'')} ලීටර්</span><b>${fmt(x.amount)}</b></div>`).join(''):'<div class="small">දත්ත නැත</div>'}</div>
+  <button class="primary" onclick="go('add')">+ දත්ත ඇතුළු කරන්න</button>`;
+}
+function addHTML(){
+  return `<div class="card"><h2>දවසේ හයර්</h2><label>නම / ගමනාන්තය</label><input id="hn" placeholder="නම / ගමනාන්තය"><button class="muted" style="width:100%;margin-top:8px" onclick="voice()">🎤 කටින් කියන්න</button><div id="vn" class="small"></div><label>මුදල (Rs.)</label><input id="ha" type="number" inputmode="numeric" placeholder="800"><label>කි.මී.</label><input id="hk" type="number" inputmode="numeric" placeholder="18"><label>ඉතිරි මුදල (Rs.)</label><input id="hr" type="number" inputmode="numeric" placeholder="0"><br><br><button class="primary" onclick="addHire()">+ හයර්</button></div>
+  <div class="card"><h2>පෙට්‍රල්</h2><label>මුදල (Rs.)</label><input id="pa" type="number" inputmode="numeric" placeholder="1200"><label>ලීටර්</label><input id="pl" type="number" inputmode="decimal" placeholder="4.2"><br><br><button class="primary" onclick="addPetrol()">⛽ පෙට්‍රල්</button></div>
+  <div class="card"><h2>School හයර්</h2><label>නම</label><input id="sn" placeholder="නම"><label>මාසය</label><input id="sm" placeholder="ජනවාරි"><label>මුදල</label><input id="sa" type="number" inputmode="numeric" placeholder="6500"><label>ඉතිරි මුදල</label><input id="sr" type="number" inputmode="numeric" placeholder="0"><br><br><button class="primary" onclick="addSchool()">School හයර්</button></div>
+  <div class="card"><h2>Leasing / Service / Police / Bill</h2><label>කැටගරිය</label><select id="oc"><option value="leasing">Leasing</option><option value="service">Service</option><option value="police">Police / Insurance / License</option><option value="bill">දවසේ Bill</option></select><label>විස්තරය</label><input id="od" placeholder="විස්තරය"><label>මුදල</label><input id="oa" type="number" inputmode="numeric" placeholder="350"><br><br><button class="primary" onclick="addOther()">ඇතුළු කරන්න</button></div>`;
+}
+function addHire(){const n=$('#hn').value.trim(),a=$('#ha').value; if(!n||!a){alert('නම සහ මුදල දාන්න');return;} DB.data.hires.push({id:Date.now()+''+Math.random(),name:n,amount:Number(a),km:Number($('#hk').value||0),remaining:Number($('#hr').value||0),date:today()}); save(); go('home');}
+function addPetrol(){const a=$('#pa').value; if(!a){alert('මුදල දාන්න');return;} DB.data.petrol.push({id:Date.now()+''+Math.random(),amount:Number(a),litres:Number($('#pl').value||0),date:today()}); save(); go('home');}
+function addSchool(){const n=$('#sn').value.trim(),a=$('#sa').value; if(!n||!a){alert('නම සහ මුදල දාන්න');return;} DB.data.school.push({id:Date.now()+''+Math.random(),name:n,month:$('#sm').value||'',amount:Number(a),remaining:Number($('#sr').value||0),date:today()}); save(); go('home');}
+function addOther(){const c=$('#oc').value,d=$('#od').value.trim(),a=$('#oa').value; if(!d||!a){alert('විස්තරය සහ මුදල දාන්න');return;} DB.data[c].push({id:Date.now()+''+Math.random(),desc:d,amount:Number(a),date:today()}); save(); go('home');}
+function voice(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR){$('#vn').textContent='කටින් කියන පහසුකම නැත';return;} const r=new SR(); r.lang='si-LK'; r.onresult=e=>{$('#hn').value=e.results[0][0].transcript; $('#vn').textContent='ඇහුණා: '+e.results[0][0].transcript;}; r.onerror=()=>{$('#vn').textContent='කටහඬ හඳුනාගත නොහැකි විය';}; r.start();}
+function reportHTML(){
+  const m=today().slice(0,7); const days={};
+  ['hires','petrol','bill','leasing','service','police'].forEach(c=>list(c).forEach(x=>{if(String(x.date||'').startsWith(m)){days[x.date]=days[x.date]||{inc:0,exp:0,pet:0}; if(c==='hires')days[x.date].inc+=Number(x.amount||0); else if(c==='petrol'){days[x.date].exp+=Number(x.amount||0);days[x.date].pet+=Number(x.amount||0);} else days[x.date].exp+=Number(x.amount||0);}}));
+  const rows=Object.keys(days).sort().map(d=>`<div class="row"><span>${d}</span><span>ආ ${fmt(days[d].inc)} • විය ${fmt(days[d].exp)} • ශේෂ ${fmt(days[d].inc-days[d].exp)}</span></div>`).join('')||'<div class="small">දත්ත නැත</div>';
+  const ti=Object.values(days).reduce((a,x)=>a+x.inc,0), te=Object.values(days).reduce((a,x)=>a+x.exp,0), tp=Object.values(days).reduce((a,x)=>a+x.pet,0);
+  return `<div class="card"><h2>මාසික වාර්තාව - ${m}</h2><button class="primary" onclick="render()">සම්පූර්ණ මාසය</button><div style="margin-top:12px">${rows}</div><hr><div class="row"><b>මුළු ආදායම</b><b>${fmt(ti)}</b></div><div class="row"><b>මුළු වියදම</b><b>${fmt(te)}</b></div><div class="row"><b>මුළු පෙට්‍රල්</b><b>${fmt(tp)}</b></div><div class="row"><b>ශේෂය</b><b>${fmt(ti-te)}</b></div></div>`;
+}
+function settingsHTML(){
+  const rows=list(manageCat).slice().reverse().map(x=>`<div class="row"><span>${esc(x.name||x.desc||'පෙට්‍රල්')} • ${esc(x.date||'')}</span><span><b>${fmt(x.amount)}</b> <button onclick="editRec('${manageCat}','${x.id}')">සංස්කරණය</button> <button class="danger" onclick="del('${manageCat}','${x.id}')">ඉවත් කරන්න</button></span></div>`).join('')||'<div class="small">දත්ත නැත</div>';
+  const editBox=editRef?`<div class="card"><h2>සංස්කරණය</h2><label>නම / විස්තරය</label><input id="en" value="${esc(editRef.name||editRef.desc||'')}"><label>මුදල</label><input id="ea" type="number" value="${editRef.amount||''}"><br><br><button class="primary" onclick="saveEdit()">Save</button> <button class="muted" onclick="editRef=null;render()">Cancel</button></div>`:'';
+  return `<div class="card"><h2>දත්ත සංස්කරණය / ඉවත් කිරීම</h2><label>කැටගරිය තෝරන්න</label><select id="mc" onchange="manageCat=this.value;editRef=null;render()">${CATS.map(c=>`<option value="${c[0]}" ${c[0]===manageCat?'selected':''}>${c[1]}</option>`).join('')}</select><div style="margin-top:12px">${rows}</div><br><button class="danger" style="width:100%" onclick="clearCat()">මෙම කැටගරිය හිස් කරන්න</button></div>${editBox}
+  <div class="card"><h2>Key</h2><div class="small">${DB.activation?('Activated • '+DB.activation.key+' • ඉවර වෙන්නේ '+DB.activation.expiryDate):(isTrialActive()?'Trial • ඉවර වෙන්නේ '+trialExpiry()+' • ඉතිරි දවස් '+trialLeft():'Lock')}</div><label>Key එක</label><input id="keyin" placeholder="RDK-####-####-#M/Y-####" style="text-transform:uppercase"><br><br><button class="primary" onclick="activate()">Activate කරන්න</button><div id="kerr" class="small"></div><a class="green" style="margin-top:10px" href="https://wa.me/94713079394?text=${encodeURIComponent('ROAD KING Key එකක් ගන්න ඕන')}">✆ Key එක ගන්න</a></div>`;
+}
+function editRec(cat,id){editRef=list(cat).find(x=>x.id===id);render();}
+function saveEdit(){if(!editRef)return; editRef.name=$('#en').value; editRef.desc=$('#en').value; editRef.amount=Number($('#ea').value||0); save(); editRef=null; render();}
+function lockHTML(){
+  const trialMsg=isTrialActive()?'':(DB.trial?'Trial එකේ කාලය ඉවරයි. Key එකක් ගන්න WhatsApp කරන්න.':'Key එකක් ගන්න WhatsApp කරන්න.');
+  return `<div class="card" style="text-align:center"><div style="font-size:44px;font-weight:900;color:#0B5ED7">RK</div><h2>ROAD KING</h2><p class="small">Trial: Install කළ දින සිට දවස් 7ක්. ඉන් පසු Key එකක් ඕන.</p><p class="small">${trialMsg}</p><label style="text-align:left">Key එක</label><input id="keyin" placeholder="RDK-####-####-#M/Y-####" style="text-transform:uppercase"><br><br><button class="primary" onclick="activate()">Activate කරන්න</button><div id="kerr" class="small"></div><a class="green" style="margin-top:10px" href="https://wa.me/94713079394?text=${encodeURIComponent('ROAD KING Key එකක් ගන්න ඕන')}">✆ Key එක ගන්න</a></div>`;
+}
+function activate(){
+  const key=($('#keyin').value||'').trim().toUpperCase(); const m=/^RDK-(\d{4})-(\d{4})-([1-9])([MY])-(\d{4})$/.exec(key);
+  if(!m){$('#kerr').textContent='Key එක වැරදියි';return;}
+  const pppp=Number(m[1]),mmmm=Number(m[2]),d=Number(m[3]),unit=m[4];
+  const exp=((pppp*7+mmmm*13+d*29+4317)%10000).toString().padStart(4,'0');
+  if(exp!==m[5]){$('#kerr').textContent='Key එක වැරදියි';return;}
+  if(DB.usedKey && DB.usedKey!==key && DB.activation && DB.activation.key===DB.usedKey){/* same phone re-activate allowed */}
+  if(DB.usedKey && DB.usedKey!==key && !DB.activation){$('#kerr').textContent='මේ Phone එකේ වෙන Key එකක් පාවිච්චි වෙලා';return;}
+  const expiry=unit==='M'?addMonths(today(),d):addYears(today(),d);
+  DB.activation={key,expiryDate:expiry,activatedAt:today(),device:DB.device}; DB.usedKey=key; save(); render(); alert('Activate වුණා | ඉවර වෙන්නේ: '+expiry);
+}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(()=>{});});}
+init();
+</script></body></html>
