@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="si"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ROAD KING - 2027</title><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0A2540">
+<link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:'Noto Sans Sinhala',system-ui,sans-serif;background:#E3F2FD;color:#0A2540}
+.shell{max-width:480px;margin:auto;min-height:100dvh;background:#E3F2FD;display:flex;flex-direction:column}
+header{background:linear-gradient(180deg,#071E3E,#0B3D7A,#1565C0);color:#fff;box-shadow:0 10px 20px rgba(0,0,0,.18)}
+.head{display:flex;gap:10px;align-items:center;padding:16px 16px 12px}
+.head img{width:58px;height:58px;object-fit:contain;background:transparent;border:0;box-shadow:none;flex-shrink:0}
+.head h1{margin:0;font-size:clamp(21px,6vw,26px);font-weight:900;letter-spacing:-.5px;line-height:1}
+.head h1 span{color:#BBDEFB}
+.head .tag{font-size:10px;color:#BBDEFB;font-weight:800;letter-spacing:.22em;margin-top:4px}
+.head .who{font-size:13px;font-weight:800;margin-top:4px}
+.head .tuk{font-size:12px;font-weight:700;color:#BBDEFB}
+.nav{display:flex;gap:8px;overflow-x:auto;padding:0 16px 12px;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav button{flex-shrink:0;display:flex;gap:6px;align-items:center;padding:8px 12px;border-radius:999px;font-size:13px;font-weight:800;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+.nav button.on{background:#fff;color:#0A2540;border-color:#fff}
+main{flex:1;padding:16px 16px 24px}
+.card{background:#fff;border:1.5px solid #90CAF9;border-radius:22px;padding:16px;box-shadow:0 4px 10px rgba(10,37,64,.08)}
+.hero{background:linear-gradient(135deg,#071E3E,#0D47A1,#1E88E5);color:#fff;border-radius:24px;padding:20px;box-shadow:0 10px 20px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.2)}
+.hero .chip{display:inline-block;background:rgba(255,255,255,.2);color:#fff;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800}
+.hero h2{margin:16px 0 4px;font-size:clamp(24px,7vw,30px);font-weight:900;line-height:1.1}
+.hero p{margin:0;font-size:14px;font-weight:700;color:#BBDEFB}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.box{border-radius:22px;padding:14px;box-shadow:0 4px 10px rgba(10,37,64,.12);min-width:0}
+.box small{font-size:12px;font-weight:800}
+.box b{display:block;font-size:clamp(18px,5.5vw,24px);font-weight:900;margin-top:4px;overflow-wrap:anywhere}
+.box span{font-size:11px;font-weight:700}
+.b-inc{background:linear-gradient(180deg,#E3F2FD,#BBDEFB);border:1px solid #90CAF9;color:#0A2540}
+.b-exp{background:linear-gradient(180deg,#42A5F5,#1565C0);border:1px solid #1565C0;color:#fff}
+.b-pet{background:linear-gradient(180deg,#0D47A1,#071E3E);border:1px solid #0A2540;color:#fff}
+.remain{background:linear-gradient(90deg,#071E3E,#0D47A1,#1976D2);color:#fff;border-radius:24px;padding:20px;display:flex;justify-content:space-between;align-items:center;gap:12px;box-shadow:0 10px 20px rgba(0,0,0,.18)}
+.remain b{font-size:clamp(28px,8vw,38px);font-weight:900}
+.btn-yellow{width:100%;padding:20px;border-radius:22px;background:#FFC107;color:#0A2540;font-weight:900;font-size:20px;border:2px solid #F9A825;box-shadow:0 8px 16px rgba(0,0,0,.15);cursor:pointer}
+.btn-blue{width:100%;padding:14px;border-radius:16px;background:#1565C0;color:#fff;font-weight:900;font-size:16px;border:0;cursor:pointer}
+.btn-dark{width:100%;padding:14px;border-radius:16px;background:#0A2540;color:#fff;font-weight:800;font-size:15px;border:0;cursor:pointer}
+.btn-light{width:100%;padding:12px;border-radius:12px;background:#BBDEFB;color:#0A2540;font-weight:800;border:0;cursor:pointer}
+.short{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.short button{border-radius:20px;padding:14px;text-align:left;font-weight:900;font-size:14px;border:0;cursor:pointer;box-shadow:0 4px 10px rgba(10,37,64,.12)}
+.s1{background:linear-gradient(135deg,#1976D2,#0D47A1);color:#fff}.s2{background:linear-gradient(135deg,#E3F2FD,#90CAF9);color:#0A2540;border:1px solid #90CAF9}.s3{background:linear-gradient(135deg,#0A2540,#1565C0);color:#fff}
+.license{background:linear-gradient(90deg,#0D47A1,#1976D2);color:#fff;border-radius:20px;padding:16px;display:flex;gap:12px;align-items:center;box-shadow:0 4px 10px rgba(10,37,64,.15);cursor:pointer}
+.field{width:100%;background:#fff;border:1.5px solid #90CAF9;border-radius:14px;padding:14px;font-size:16px;font-weight:700;color:#0A2540;margin:6px 0}
+.field:focus{border-color:#1565C0;outline:none}
+label{font-weight:800;font-size:14px}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.item{display:flex;gap:12px;align-items:center;background:#E3F2FD;border:1px solid #90CAF9;border-radius:16px;padding:12px}
+.avatar{width:40px;height:40px;border-radius:12px;background:#1565C0;color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.del{background:#0A2540;color:#fff;border:0;border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer}
+.small{font-size:13px;color:#3A5A7A;font-weight:700}
+.hidden{display:none!important}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:8px;border-bottom:1px solid #E3F2FD;text-align:left}
+.lock{position:fixed;inset:0;background:#0A2540;color:#fff;z-index:99;display:flex;align-items:center;justify-content:center;padding:20px}
+.lock>div{max-width:420px;width:100%;text-align:center}.lock img{width:58px;height:58px;object-fit:contain;background:transparent}
+.pill{display:inline-block;background:#BBDEFB;color:#0A2540;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800}
+</style></head><body><div class="shell">
+<header><div class="head"><img src="logo.jpg" alt="Road King logo"><div><h1>ROAD KING <span>- 2027</span></h1><div class="tag">TUK-TUK DRIVER DIARY</div><div class="who" id="whoName"></div><div class="tuk" id="whoTuk"></div></div></div>
+<div class="nav" id="nav"></div></header>
+<main>
+<div id="page-home">
+<div class="hero"><span class="chip" id="heroDate"></span><h2>අද දවසේ සාරාංශය</h2><p id="heroSub"></p></div>
+<div style="height:16px"></div>
+<div class="grid3"><div class="box b-inc"><small>ආදායම</small><b id="hInc">0</b><span>Rs.</span></div><div class="box b-exp"><small>වියදම</small><b id="hExp">0</b><span>Rs.</span></div><div class="box b-pet"><small>පෙට්‍රල්</small><b id="hPet">0</b><span>Rs.</span></div></div>
+<div style="height:16px"></div>
+<section class="remain"><div><p style="margin:0;font-size:15px;font-weight:800;opacity:.9">අද ඉතුරුයි</p><p style="margin:2px 0 0;font-size:12px;font-weight:700;opacity:.7">ආදායම − වියදම − පෙට්‍රල්</p></div><b id="hBal">Rs. 0</b></section>
+<div style="height:16px"></div>
+<button class="btn-yellow" onclick="show('next')">🔔 ඊළඟ හයර්</button>
+<div style="height:16px"></div>
+<div class="short"><button class="s1" onclick="show('hires')">+<br>හයර්</button><button class="s2" onclick="show('petrol')">⛽<br>පෙට්‍රල්</button><button class="s3" onclick="show('bill')">●<br>වියදම</button></div>
+<div style="height:16px"></div>
+<div class="license" onclick="show('settings')"><span style="width:44px;height:44px;border-radius:999px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:22px">⚠</span><span style="flex:1;font-weight:900;font-size:16px">ලයිසන් — දවස් 5කින් ඉවරයි</span><span>›</span></div>
+<div style="height:16px"></div>
+<section class="card" style="background:#EAF4FF"><div style="display:flex;justify-content:space-between;align-items:center"><h2 style="margin:0;font-size:17px">අද හයර්</h2><span class="pill" id="hireCount"></span></div><div id="todayList" style="margin-top:12px;display:flex;flex-direction:column;gap:8px"></div><button class="btn-light" style="margin-top:12px" onclick="toggleAll()" id="showAllBtn">සේරම බලන්න</button></section>
+<div style="height:12px"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><button class="card" style="text-align:left;cursor:pointer" onclick="show('report')">📅<br><b>මාසික වාර්තාව</b></button><button class="card" style="text-align:left;cursor:pointer;background:linear-gradient(135deg,#1565C0,#0D47A1);color:#fff" onclick="show('settings')">🗄<br><b>Backup</b></button></div>
+<p style="text-align:center;font-size:12px;color:#1565C0;font-weight:700" id="foot"></p>
+</div>
+
+<div id="page-hires" class="hidden"><div class="card"><label>හයර් නම</label><input class="field" id="hireName" placeholder="කාගේ Hire එකද"><div class="row"><input class="field" id="hireAmount" type="number" placeholder="මුදල Rs"><input class="field" id="hireKm" type="number" placeholder="කි.මී."></div><input class="field" id="hireRem" type="number" placeholder="ඉතිරි මුදල Rs"><button class="btn-blue" onclick="addHire()">හයර් එකතු කරන්න</button></div><div class="card" style="margin-top:12px"><b>අද හයර් ලැයිස්තුව</b><div id="hireList" style="margin-top:10px;display:flex;flex-direction:column;gap:8px"></div></div></div>
+
+<div id="page-petrol" class="hidden"><div class="card"><label>පෙට්‍රල් මුදල</label><input class="field" id="petAmt" type="number" placeholder="මුදල Rs" oninput="calcLit()"><div class="small" id="litPrev"></div><label>ලීටර්</label><input class="field" id="petLit" type="number" placeholder="ලීටර්"><button class="btn-blue" onclick="addPet()">පෙට්‍රල් එකතු කරන්න</button></div></div>
+
+<div id="page-bill" class="hidden"><div class="card"><label>වියදම වර්ගය</label><select class="field" id="billCat"><option>කෑම</option><option>ගෙදර වියදම්</option><option>දරුවන්ගේ</option><option>ලිකර්</option><option>අධාර</option><option>බෙට්න්</option><option>බෙහෙත්</option><option>ඔයිල්</option><option>වෙනත්</option></select><input class="field" id="billAmt" type="number" placeholder="මුදල Rs"><button class="btn-blue" onclick="addBill()">වියදම එකතු කරන්න</button></div><div class="card" style="margin-top:12px"><b>අද වියදම්</b><div id="billList" style="margin-top:10px;display:flex;flex-direction:column;gap:8px"></div></div></div>
+
+<div id="page-next" class="hidden"><div class="card"><label>නම</label><input class="field" id="nxName" placeholder="කාගේ Hire එකද"><label>වෙලාව</label><input class="field" id="nxTime" type="time"><label>තැන</label><input class="field" id="nxPlace" placeholder="කොහෙද"><button class="btn-yellow" style="font-size:17px;padding:14px" onclick="saveNext()">සේව් කරන්න</button><div style="height:8px"></div><button class="btn-blue" onclick="openClock()">Phone Clock</button><div style="height:8px"></div><button class="btn-dark" onclick="openCal()">Calendar</button></div><div class="card" style="margin-top:12px"><b>ඊළඟ හයර් ලැයිස්තුව</b><div id="nextList" style="margin-top:10px;display:flex;flex-direction:column;gap:8px"></div></div></div>
+
+<div id="page-report" class="hidden"><div class="card"><label>මාසය</label><input class="field" id="repMonth" type="month" value="2026-11"><button class="btn-blue" onclick="renderReport()">මාසික වාර්තාව බලන්න</button><div style="height:8px"></div><button class="btn-dark" onclick="renderYear()">අවුරුදු වාර්තාව බලන්න</button><label style="margin-top:10px;display:block">අවුරුද්ද</label><select class="field" id="repYear"><option>2026</option><option>2027</option><option>2028</option><option>2029</option><option>2030</option></select></div><div class="card" id="reportOut" style="margin-top:12px"><div class="small">මාසය තෝරා බලන්න.</div></div></div>
+
+<div id="page-settings" class="hidden">
+<div class="card"><label>නම</label><input class="field" id="sName" placeholder="නම"><label>Three-wheeler අංකය</label><input class="field" id="sNum" placeholder="WP-1234"><label>1 ලීටර් පෙට්‍රල් මිල (Rs)</label><input class="field" id="sPrice" type="number" placeholder="285"><div class="small" id="trialLabel"></div></div>
+<div class="card" style="margin-top:12px"><label>Category එකකින් දත්ත සංස්කරණය / ඉවත් කිරීම</label><select class="field" id="editCat" onchange="renderEdit()"><option value="">Category තෝරන්න</option><option>ආදායම</option><option>ගෙදර වියදම්</option><option>දරුවන්ගේ</option><option>ලිකර්</option><option>අධාර</option><option>බෙට්න්</option><option>බෙහෙත්</option><option>ඔයිල්</option><option>කෑම</option><option>වෙනත්</option><option>පෙට්‍රල්</option></select><div id="editList"></div><button class="btn-dark" style="margin-top:8px" onclick="clearCat()">තෝරා ඇති Category එක Clear කරන්න</button></div>
+<div class="card" style="margin-top:12px"><b>Backup</b><p class="small" id="backupText"></p><button class="btn-blue" onclick="makeBackup()">Backup සකස් කරන්න</button></div>
+<div class="card" style="margin-top:12px"><b>Key</b><input class="field" id="keyInput" placeholder="RDK-PPPP-MMMM-DU-CCCC"><button class="btn-blue" onclick="activateKey()">Key එක දාන්න</button><div class="small" id="keyMsg"></div><button class="btn-dark" style="margin-top:8px" onclick="openWA()">Key එක ගන්න</button></div>
+</div>
+</main></div>
+<div id="lock" class="lock hidden"><div><img src="logo.jpg"><h2>ROAD KING - 2027</h2><p>ඇප් එක Lock වෙලා. Key එකක් දාන්න.</p><input class="field" id="lockKey" placeholder="RDK-PPPP-MMMM-DU-CCCC"><button class="btn-blue" onclick="activateKey(true)">Key එක දාන්න</button><div style="height:10px"></div><button class="btn-dark" onclick="openWA()">Key එක ගන්න</button><div class="small" id="lockMsg" style="color:#fff"></div></div></div>
+<script>
+let DB=JSON.parse(localStorage.getItem('rk2027')||'{"entries":[],"hires":[],"next":[],"settings":{"name":"","num":"","price":""},"key":null,"install":""}');
+if(!DB.install){DB.install=new Date().toISOString().slice(0,10);save();}
+function save(){localStorage.setItem('rk2027',JSON.stringify(DB));}
+function fmt(n){return 'Rs. '+Number(n||0).toLocaleString('en-LK');}
+function today(){return new Date().toISOString().slice(0,10);}
+let showAll=false;
+const NAV=[['home','🏠 මුල් පිටුව'],['hires','🚕 දවසේ හයර්'],['petrol','⛽ පෙට්‍රල්'],['bill','🧾 දවසේ Bill'],['next','🔔 ඊළඟ හයර්'],['report','📅 මාසික වාර්තාව'],['settings','⚙️ සැකසීම්']];
+function show(p){['home','hires','petrol','bill','next','report','settings'].forEach(x=>document.getElementById('page-'+x).classList.toggle('hidden',x!==p));document.querySelectorAll('.nav button').forEach((b,i)=>b.classList.toggle('on',NAV[i][0]===p));renderAll();window.scrollTo(0,0);}
+function buildNav(){document.getElementById('nav').innerHTML=NAV.map((n,i)=>`<button onclick="show('${n[0]}')">${n[1]}</button>`).join('');}
+function calcLit(){let pr=Number(DB.settings.price||0),amt=Number(document.getElementById('petAmt').value||0);document.getElementById('litPrev').textContent=pr>0?('ලීටර් '+(amt/pr).toFixed(2)):"";if(pr>0&&amt)document.getElementById('petLit').value=(amt/pr).toFixed(2);}
+function addHire(){let amt=Number(document.getElementById('hireAmount').value),n=document.getElementById('hireName').value;if(!amt||!n)return alert('නමයි මුදලයි ගහන්න');DB.hires.push({d:today(),name:n,amt,km:Number(document.getElementById('hireKm').value||0),rem:Number(document.getElementById('hireRem').value||0)});DB.entries.push({d:today(),type:'inc',cat:'ආදායම',note:n,amt});save();['hireName','hireAmount','hireKm','hireRem'].forEach(i=>document.getElementById(i).value='');renderAll();}
+function addPet(){let amt=Number(document.getElementById('petAmt').value);if(!amt)return alert('මුදල ගහන්න');DB.entries.push({d:today(),type:'pet',cat:'පෙට්‍රල්',amt,lit:Number(document.getElementById('petLit').value||0)});save();document.getElementById('petAmt').value='';document.getElementById('petLit').value='';renderAll();}
+function addBill(){let amt=Number(document.getElementById('billAmt').value),cat=document.getElementById('billCat').value;if(!amt)return alert('මුදල ගහන්න');DB.entries.push({d:today(),type:'exp',cat,amt});save();document.getElementById('billAmt').value='';renderAll();}
+function delEntry(i){if(confirm('මේක ඉවත් කරන්නද?')){DB.entries.splice(i,1);save();renderAll();}}
+function delHire(i){DB.hires.splice(i,1);save();renderAll();}
+function toggleAll(){showAll=!showAll;renderAll();}
+function renderAll(){let t=today(),inc=0,exp=0,pet=0;let hires=DB.hires.filter(h=>h.d===t);DB.entries.forEach(e=>{if(e.d===t){if(e.type==='inc')inc+=e.amt;if(e.type==='exp')exp+=e.amt;if(e.type==='pet')pet+=e.amt;}});
+document.getElementById('hInc').textContent=inc.toLocaleString('en-LK');document.getElementById('hExp').textContent=exp.toLocaleString('en-LK');document.getElementById('hPet').textContent=pet.toLocaleString('en-LK');document.getElementById('hBal').textContent=fmt(inc-exp-pet);
+document.getElementById('heroDate').textContent='අද • '+t;document.getElementById('heroSub').textContent='හයර් '+hires.length+' • '+(DB.settings.name?DB.settings.name+' • ':'')+DB.settings.num;
+document.getElementById('whoName').textContent=DB.settings.name||'';document.getElementById('whoTuk').textContent=DB.settings.num||'';document.getElementById('foot').textContent='ROAD KING - 2027 • '+DB.settings.name+' • '+DB.settings.num+' • ලීටරයක මිල Rs. '+(DB.settings.price||'');
+document.getElementById('hireCount').textContent=hires.length+' හයර්';
+let hl=(showAll?hires:hires.slice(0,3)).map((h,i)=>`<div class="item"><span class="avatar">${(h.name||'').slice(0,1)}</span><span style="flex:1;min-width:0"><b style="display:block;overflow-wrap:anywhere">${h.name}</b><span class="small">${h.km||0} කි.මී. • ඉතිරි ${fmt(h.rem||0)}</span></span><b style="color:#1565C0">${fmt(h.amt)}</b></div>`).join('');document.getElementById('todayList').innerHTML=hl||'<p class="small">දත්ත නැත</p>';document.getElementById('showAllBtn').textContent=showAll?'අඩුවෙන් බලන්න':'සේරම බලන්න';
+document.getElementById('hireList').innerHTML=DB.hires.map((h,i)=>`<div class="item"><span style="flex:1"><b>${h.name}</b><div class="small">${h.d} • ${h.km} km</div></span><b>${fmt(h.amt)}</b><button class="del" onclick="delHire(${i})">ඉවත්</button></div>`).join('')||'<div class="small">දත්ත නැත</div>';
+let bl='';DB.entries.forEach((e,i)=>{if(e.d===t&&e.type==='exp')bl+=`<div class="item"><span style="flex:1">${e.cat}</span><b>${fmt(e.amt)}</b><button class="del" onclick="delEntry(${i})">ඉවත්</button></div>`});document.getElementById('billList').innerHTML=bl||'<div class="small">දත්ත නැත</div>';
+document.getElementById('nextList').innerHTML=DB.next.map((h,i)=>`<div class="item"><span style="flex:1"><b>${h.name}</b><div class="small">${h.time} • ${h.place}</div></span><button class="del" onclick="delNext(${i})">ඉවත්</button></div>`).join('')||'<div class="small">ඊළඟ හයර් නැහැ.</div>';
+checkLock();}
+function saveNext(){let n=document.getElementById('nxName').value,t=document.getElementById('nxTime').value,p=document.getElementById('nxPlace').value;if(!n||!t)return alert('නමයි වෙලාවයි ගහන්න');DB.next.push({name:n,time:t,place:p});save();renderAll();}
+function delNext(i){DB.next.splice(i,1);save();renderAll();}
+function openClock(){alert('Phone Clock එකේ Alarm එක දාගන්න');}
+function openCal(){let h=DB.next[DB.next.length-1];let txt=h?`${h.name} ${h.time} ${h.place}`:'ROAD KING Hire';window.open('https://calendar.google.com/calendar/r/eventedit?text='+encodeURIComponent(txt),'_blank');}
+function renderReport(){let m=document.getElementById('repMonth').value;if(!m)return;let days={};DB.entries.forEach(e=>{if(e.d.startsWith(m)){if(!days[e.d])days[e.d]={i:0,e:0,p:0,l:0};if(e.type==='inc')days[e.d].i+=e.amt;if(e.type==='exp')days[e.d].e+=e.amt;if(e.type==='pet'){days[e.d].p+=e.amt;days[e.d].l+=e.lit||0;}}});let rows='',ti=0,te=0,tp=0,tl=0;Object.keys(days).sort().forEach(d=>{let r=days[d];ti+=r.i;te+=r.e;tp+=r.p;tl+=r.l;rows+=`<tr><td>${d}</td><td>${fmt(r.i)}</td><td>${fmt(r.e)}</td><td>${fmt(r.p)} (${r.l.toFixed(2)} L)</td><td>${fmt(r.i-r.e-r.p)}</td></tr>`});document.getElementById('reportOut').innerHTML=`<b>${m} - මාසික වාර්තාව</b><table><tr><th>දිනය</th><th>ආදායම</th><th>වියදම</th><th>පෙට්‍රල්</th><th>ඉතුරුයි</th></tr>${rows||'<tr><td colspan=5>දත්ත නැහැ.</td></tr>'}</table><p><b>මුළු ආදායම:</b> ${fmt(ti)}<br><b>මුළු වියදම:</b> ${fmt(te)}<br><b>මුළු පෙට්‍රල්:</b> ${fmt(tp)} (${tl.toFixed(2)} L)<br><b>මුළු ඉතුරුයි:</b> ${fmt(ti-te-tp)}</p>`;}
+function renderYear(){let y=document.getElementById('repYear').value;let months={};for(let i=1;i<=12;i++){let mm=String(i).padStart(2,'0');months[y+'-'+mm]={i:0,e:0,p:0,l:0}}DB.entries.forEach(e=>{if(e.d.startsWith(y)){let k=e.d.slice(0,7);if(e.type==='inc')months[k].i+=e.amt;if(e.type==='exp')months[k].e+=e.amt;if(e.type==='pet'){months[k].p+=e.amt;months[k].l+=e.lit||0}}});let rows='',ti=0,te=0,tp=0,tl=0;Object.keys(months).forEach(k=>{let r=months[k];ti+=r.i;te+=r.e;tp+=r.p;tl+=r.l;rows+=`<tr><td>${k}</td><td>${fmt(r.i)}</td><td>${fmt(r.e)}</td><td>${fmt(r.p)} (${r.l.toFixed(2)} L)</td><td>${fmt(r.i-r.e-r.p)}</td></tr>`});document.getElementById('reportOut').innerHTML=`<b>${y} - අවුරුදු වාර්තාව</b><table><tr><th>මාසය</th><th>ආදායම</th><th>වියදම</th><th>පෙට්‍රල්</th><th>ඉතුරුයි</th></tr>${rows}</table><p><b>අවුරුද්දේ මුළු ඉතුරුයි:</b> ${fmt(ti-te-tp)}</p>`;}
+function renderEdit(){let c=document.getElementById('editCat').value;let html='';DB.entries.forEach((e,i)=>{if(e.cat===c){html+=`<div class="item"><span style="flex:1">${e.d} - ${fmt(e.amt)}</span><button class="del" onclick="editEntry(${i})">Edit</button> <button class="del" onclick="delEntry(${i})">Delete</button></div>`}});document.getElementById('editList').innerHTML=html||'<div class="small">දත්ත නැහැ.</div>';}
+function editEntry(i){let v=prompt('අලුත් මුදල',DB.entries[i].amt);if(v!==null&&Number(v)>=0){DB.entries[i].amt=Number(v);save();renderAll();renderEdit();}}
+function clearCat(){let c=document.getElementById('editCat').value;if(!c)return;if(confirm(c+' Category එක Clear කරන්නද?')){DB.entries=DB.entries.filter(e=>e.cat!==c);save();renderAll();renderEdit();}}
+function makeBackup(){let t=today(),inc=0,exp=0,pet=0;DB.entries.forEach(e=>{if(e.d===t){if(e.type==='inc')inc+=e.amt;if(e.type==='exp')exp+=e.amt;if(e.type==='pet')pet+=e.amt;}});document.getElementById('backupText').textContent=`ROAD KING - 2027 - ${DB.settings.name} - ${DB.settings.num} | දිනය: ${t} | අද ඉතුරුයි: ${fmt(inc-exp-pet)}`;}
+function openWA(){window.open('https://wa.me/94713079394?text='+encodeURIComponent('ROAD KING Key එකක් ගන්න ඕන'),'_blank');}
+['sName','sNum','sPrice'].forEach(id=>{document.getElementById(id).addEventListener('input',()=>{DB.settings.name=document.getElementById('sName').value;DB.settings.num=document.getElementById('sNum').value;DB.settings.price=document.getElementById('sPrice').value;save();calcLit();renderAll();});});
+function trialDays(){let inst=new Date(DB.install);return Math.max(0,7-Math.floor((new Date()-inst)/86400000));}
+function validKey(k){let m=/^RDK-(\d{4})-(\d{4})-([1-9])([MY])-(\d{4})$/.exec(k);if(!m)return null;let calc=(Number(m[1])*7+Number(m[2])*13+Number(m[3])*29+4317)%10000;if(calc!==Number(m[5]))return null;return {d:Number(m[3]),unit:m[4]};}
+function activateKey(fromLock){let inp=document.getElementById(fromLock?'lockKey':'keyInput').value.trim().toUpperCase();let v=validKey(inp);if(!v){document.getElementById(fromLock?'lockMsg':'keyMsg').textContent='Key එක වැරදියි.';return;}DB.key={key:inp,from:today(),d:v.d,unit:v.unit};save();checkLock();document.getElementById(fromLock?'lockMsg':'keyMsg').textContent='Key එක Active.';renderAll();}
+function checkLock(){let locked=false;if(DB.key){let f=new Date(DB.key.from+'T00:00:00');if(DB.key.unit==='M')f.setMonth(f.getMonth()+DB.key.d);else f.setFullYear(f.getFullYear()+DB.key.d);if(new Date()>f)locked=true;}else if(trialDays()<=0)locked=true;document.getElementById('lock').classList.toggle('hidden',!locked);document.getElementById('trialLabel').textContent='Trial • ඉතිරි දවස් '+trialDays();document.getElementById('sName').value=DB.settings.name||'';document.getElementById('sNum').value=DB.settings.num||'';document.getElementById('sPrice').value=DB.settings.price||'';}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
+buildNav();show('home');
+</script></body></html>
